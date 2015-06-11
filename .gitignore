@@ -1,0 +1,7 @@
+/nbproject/private/
+/vendor/
+/composer.lock
+/app/AppParameters.php
+/app/data/
+/console/Parameters.php
+/console/data/
