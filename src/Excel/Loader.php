@@ -123,5 +123,9 @@ class Loader
     {
         return $this->excel->processDateTime($dt);
     }
+    protected function processDayOfWeek($date)
+    {
+        return $this->excel->processDayOfWeek($date);
+    }
 }
 ?>

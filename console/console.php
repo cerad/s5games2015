@@ -16,5 +16,6 @@ new Services  ($dic);
 $app = new Application();
 
 $app->add($dic['tran_sinc_spor_games_command']);
+$app->add($dic['referee_report_command']);
 $app->run();
 

@@ -47,22 +47,27 @@ class Reader
     {
         return \PHPExcel_IOFactory::load($file);
     }
-    /* ==================================================
-     * 15 Oct 2013
-     * Put these in here as well, hack for Kicks
-     * Tested on: xlsx
-     */
-    public function processTime($time)
-    {
-        return \PHPExcel_Style_NumberFormat::toFormattedString($time,'hh:mm:ss');
-    }
-    public function processDate($date)
-    {
-        return \PHPExcel_Style_NumberFormat::toFormattedString($date,'yyyy-MM-dd');
-    }
-    public function processDateTime($dt)
-    {
-        return \PHPExcel_Style_NumberFormat::toFormattedString($dt,'yyyy-MM-dd hh:mm:ss');
-    }
+  /* ==================================================
+   * 15 Oct 2013
+   * 
+   * * Put these in here as well, hack for Kicks
+   * Tested on: xlsx
+   */
+  public function processTime($time)
+  {
+    return \PHPExcel_Style_NumberFormat::toFormattedString($time,'hh:mm:ss');
+  }
+  public function processDate($date)
+  {
+    return \PHPExcel_Style_NumberFormat::toFormattedString($date,'yyyy-MM-dd');
+  }
+  public function processDayOfWeek($date)
+  {die('dow');
+    return \PHPExcel_Style_NumberFormat::toFormattedString($date,'D yy');
+  }
+  public function processDateTime($dt)
+  {
+    return \PHPExcel_Style_NumberFormat::toFormattedString($dt,'yyyy-MM-dd hh:mm:ss');
+  }
 }
 ?>

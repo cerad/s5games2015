@@ -13,6 +13,9 @@ class Services
     $dic['tran_sinc_spor_games_command'] = function(Container $dic) {
       return new TranSincSporGamesCommand();
     };
+    $dic['referee_report_command'] = function(Container $dic) {
+      return new RefereeReportCommand();
+    };
     return;
     /* ======================================
      * Connections
