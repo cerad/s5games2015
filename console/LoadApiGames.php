@@ -17,7 +17,7 @@ class LoadApiGames
     $data = json_decode($guzzleResponse->getBody()->getContents(),true);
     echo sprintf("Games %s\n",count($data['games']));
       
-    $divs     = $data['divs'];
+    $divs     = $data['divs']; // TODO: Process from team name?
     $games    = $data['games'];
     $teams    = $data['teams'];
     $fields   = $data['fields'];
@@ -72,7 +72,7 @@ class LoadApiGames
           $person = $persons[$personId]; // print_r($person); die();
           $officialx = array_replace($officialx,$person);
           
-          $officialx['regioName'] = $regions[$person['regionId']]['name'];
+          $officialx['regionName'] = $regions[$person['regionId']]['name'];
           unset($officialx['regionId']);
           
           //print_r($officialx); die();

@@ -27,6 +27,10 @@ class BounceCommand extends Command
     
     file_put_contents('./data/ApiGames.yml', Yaml::dump($apiGames,10,2));
     
+    $report = new OfficialsReportExcel();
+    $report->generate($apiGames);
+    file_put_contents('./data/OfficialsReport.xlsx', $report->getContents());
+    
     return;
   }
 }
