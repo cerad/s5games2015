@@ -21,7 +21,8 @@
     "doctrine/dbal":    "~2.5",
     "pimple/pimple":    "^3.0",
     "phpoffice/phpexcel": "^1.8",
-    "cerad/dbal": "dev-master"
+    "cerad/dbal": "dev-master",
+    "guzzlehttp/guzzle": "~5.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^4.6"

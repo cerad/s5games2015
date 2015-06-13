@@ -16,6 +16,9 @@ class Services
     $dic['referee_report_command'] = function(Container $dic) {
       return new RefereeReportCommand();
     };
+    $dic['bounce_command'] = function(Container $dic) {
+      return new BounceCommand();
+    };
     return;
     /* ======================================
      * Connections
