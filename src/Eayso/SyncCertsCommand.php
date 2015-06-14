@@ -33,10 +33,14 @@ class SyncCertsCommand extends Command
       '/CertRefereeAdvance.csv',
       '/CertRefereeNational.csv',
     ];
+    $files = [];
     foreach($files as $file)
     {
       $results = $syncCerts->sync($dataDir . $file);
       print_r($results);
     }
+    $repo = $dic['eayso_cert_repository'];
+    $certs = $repo->findCertsByAysoid('99437977','Referee');
+    print_r($certs);
   }
 }

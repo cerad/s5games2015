@@ -16,6 +16,9 @@ class Services
     $dic['eayso_cert_type_repository'] = function() {
       return new CertTypeRepository();
     };
+    $dic['eayso_cert_repository'] = function(Dic $dic) {
+      return new CertRepository($dic['eayso_db_conn']);
+    };
     $dic['eayso_sync_certs'] = function(Dic $dic) {
       return new SyncCerts(
         $dic['eayso_db_conn'],
