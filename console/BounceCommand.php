@@ -22,14 +22,17 @@ class BounceCommand extends Command
   }
   protected function execute(InputInterface $input, OutputInterface $output)
   { 
-    $loader = new LoadApiGames();
+    $dic     = $this->getApplication()->dic;
+    $dataDir = $this->getApplication()->dataDir;
+    
+    $loader   = $dic['api_games_loader'];
     $apiGames = $loader->load();
     
-    file_put_contents('./data/ApiGames.yml', Yaml::dump($apiGames,10,2));
+    file_put_contents($dataDir . '/ApiGames.yml', Yaml::dump($apiGames,10,2));
     
-    $report = new OfficialsReportExcel();
-    $report->generate($apiGames);
-    file_put_contents('./data/OfficialsReport.xlsx', $report->getContents());
+    $reporter = $dic['officials_reporter_excel'];
+    $reporter->generate($apiGames);
+    file_put_contents($dataDir . '/OfficialsReport.xlsx', $reporter->getContents());
     
     return;
   }

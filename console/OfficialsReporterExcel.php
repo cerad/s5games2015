@@ -4,8 +4,8 @@ namespace Cerad\S5Games;
 use Cerad\Component\Excel\Generator as Reporter;
 /// Cerad\Bundle\PersonBundle\DataTransformer\PhoneTransformer;
 
-class OfficialsReportExcel extends Reporter
-{  
+class OfficialsReporterExcel extends Reporter
+{
   /* ===================================================================
    * Deal with widths and such
    */
@@ -22,7 +22,7 @@ class OfficialsReportExcel extends Reporter
     
     'Referee' => 30,'AR1' => 30,'AR2' => 30,'4th' => 10,'Other' => 10,
     'Email' => 30, 'Phone' => 12,
-    'RR' => 6,
+    'RR' => 6, 'Badge' => 12,
   ];
   protected function getOfficialName($official,$extended = false)
   {
@@ -32,7 +32,9 @@ class OfficialsReportExcel extends Reporter
     
     if (!$extended) return $name;
     
-    return sprintf('%s %s',$official['regionName'],$name);
+    $badge = $official['aysoRefereeBadge'] ? substr($official['aysoRefereeBadge'],0,3) : '???';
+   
+    return sprintf('%s %s %s',$official['regionName'],$badge,$name);
   }
   protected function getDivisionName($game)
   {
@@ -93,7 +95,7 @@ class OfficialsReportExcel extends Reporter
     $headers = array(
       'Name','Role',
       'Num','Date','Time','Field','Div','Home','Away',
-      'RR',
+      'RR','Badge',
     );
     $this->writeHeaders($ws,1,$headers,$this->colWidths);
     $row = 2;
@@ -160,6 +162,7 @@ class OfficialsReportExcel extends Reporter
         $values[] = $game['teams']['away']['name'];
 
         $values[] = $officialGame['official']['regionName'];
+        $values[] = $officialGame['official']['aysoRefereeBadge'];
         
         $this->setRowValues($ws,$row++,$values);
       }
@@ -220,7 +223,7 @@ class OfficialsReportExcel extends Reporter
     $ws->setTitle('Officials');
 
     $headers = [
-      'Name','Tot','Ref','AR','4th','Oth','Email','Phone',
+      'Name','Badge','Tot','Ref','AR','4th','Oth','Email','Phone',
       'Region','AYSOID','Mem Year','Youth',
     ];
     $cw = 4;
@@ -237,6 +240,7 @@ class OfficialsReportExcel extends Reporter
       
       $values = array();
       $values[] = $officialInfo['name'];
+      $values[] = $official    ['aysoRefereeBadge'];
       $values[] = $officialInfo['total'];
       $values[] = $officialInfo['referee'];
       $values[] = $officialInfo['ar'];

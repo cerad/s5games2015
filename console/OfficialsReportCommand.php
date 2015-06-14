@@ -12,6 +12,12 @@ use Symfony\Component\Yaml\Yaml;
 
 class RefereeReportCommand extends Command
 {
+  protected $officialsReporter;
+  
+  public function __construct($officialsReporterExcel)
+  {
+    $this->officialsReporter = $officialsReporterExcel;
+  }
   protected function configure()
   {
     $this

@@ -3,8 +3,14 @@ namespace Cerad\S5Games;
 
 use GuzzleHttp\Client as GuzzleClient;
 
-class LoadApiGames
+class ApiGamesLoader
 {
+  protected $eaysoCertRepository;
+  
+  public function __construct($eaysoCertRepository = null)
+  {
+    $this->eaysoCertRepository = $eaysoCertRepository;
+  }
   public function load($pathUri = null, $baseUri = null)
   {
     $pathUri = $pathUri !== null ? $pathUri : '/api/projects/19/games?pin=9345&dates=20150619-20150620';
@@ -22,7 +28,7 @@ class LoadApiGames
     $teams    = $data['teams'];
     $fields   = $data['fields'];
     $regions  = $data['regions'];
-    $persons  = $data['persons'];
+    $persons  = $this->processEaysoInfo($data['persons']);
     $projects = $data['projects'];
     
     $gamesx = [];
@@ -83,5 +89,24 @@ class LoadApiGames
     //print_r($gamex); die();
     }
     return $gamesx;
+  }
+  protected function processEaysoInfo($persons)
+  {
+    if (!$this->eaysoCertRepository) return $persons;
+    
+    $aysoids = [];
+    foreach($persons as $person) {
+      if ($person['aysoId']) $aysoids[] = $person['aysoId'];
+    }
+    $certs = $this->eaysoCertRepository->findCertsByAysoid($aysoids,'Referee');
+    $badges = [];
+    foreach($certs as $cert) { 
+      $badges[$cert['aysoid']] = $cert['badge'];
+    }
+    foreach($persons as $id => $person) {
+      $person['aysoRefereeBadge'] = isset($badges[$person['aysoId']]) ? $badges[$person['aysoId']] : null;
+      $persons[$id] = $person;
+    }
+    return $persons;
   }
 }

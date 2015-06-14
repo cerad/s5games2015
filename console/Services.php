@@ -2,61 +2,33 @@
 
 namespace Cerad\S5Games;
 
-use Pimple\Container;
+use Pimple\Container as Dic;
 
-use Cerad\Component\Dbal\ConnectionFactory;
+//  Cerad\Component\Dbal\ConnectionFactory as DbConn;
 
 class Services
 {
-  public function __construct(Container $dic)
+  public function __construct(Dic $dic = null)
   {
-    $dic['tran_sinc_spor_games_command'] = function(Container $dic) {
+    return $dic === null ? null : $this->register($dic);
+  }
+  public function register(Dic $dic)
+  {
+    $dic['api_games_loader'] = function(Dic $dic) {
+      return new ApiGamesLoader($dic['eayso_cert_repository']);
+    };
+    
+    $dic['tran_sinc_spor_games_command'] = function() {
       return new TranSincSporGamesCommand();
     };
-    $dic['referee_report_command'] = function(Container $dic) {
-      return new RefereeReportCommand();
+    $dic['officials_reporter_excel'] = function(Dic $dic) {
+      return new OfficialsReporterExcel();
     };
-    $dic['bounce_command'] = function(Container $dic) {
+    $dic['officials_report_command'] = function(Dic $dic) {
+      return new OfficialsReportCommand($dic['officials_reporter_excel']);
+    };
+    $dic['bounce_command'] = function() {
       return new BounceCommand();
     };
-    return;
-    /* ======================================
-     * Connections
-     */
-    $container->set('db_conn_ng2012',function(Container $container)
-    {
-      return ConnectionFactory::create($container->get('db_url_ng2012'));
-    });
-    $container->set('db_conn_ng2014',function(Container $container)
-    {
-      return ConnectionFactory::create($container->get('db_url_ng2014'));
-    });
-    $container->set('db_conn_tourns',function(Container $container)
-    {
-      return ConnectionFactory::create($container->get('db_url_tourns'));
-    });
-    $container->set('db_conn_users',function(Container $container)
-    {
-      return ConnectionFactory::create($container->get('db_url_users'));
-    });
-    /* ===========================================
-     * Commands
-     */
-    $container->set('unload_ng2012_command',function(Container $container)
-    {
-      return new UnloadNG2012Command($container->get('db_conn_ng2012'));
-    },'command');
-    $container->set('unload_ng2014_command',function(Container $container)
-    {
-      return new UnloadNG2014Command($container->get('db_conn_ng2014'));
-    },'command');
-    $container->set('unload_tourns_command',function(Container $container)
-    {
-      return new UnloadTournsCommand($container->get('db_conn_tourns'));
-    },'command');
-    $container->set('load_users_command',function(Container $container)
-    {
-      return new LoadUsersCommand($container->get('db_conn_users'));
-    },'command');
   }
 }
