@@ -1,9 +1,9 @@
 <?php
-namespace Cerad\S5Games;
+namespace Cerad\Component\Sportacus;
 
 use GuzzleHttp\Client as GuzzleClient;
 
-class ApiGamesLoader
+class GamesLoaderApi
 {
   protected $eaysoCertRepository;
   

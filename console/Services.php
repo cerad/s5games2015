@@ -24,12 +24,6 @@ class Services
     $dic['tran_sinc_spor_games_command'] = function() {
       return new TranSincSporGamesCommand();
     };
-    $dic['officials_reporter_excel'] = function(Dic $dic) {
-      return new OfficialsReporterExcel();
-    };
-    //$dic['officials_report_command'] = function(Dic $dic) {
-    //  return new OfficialsReportCommand($dic['officials_reporter_excel']);
-    //};
     $dicCommands = $dic['dic_commands'];
     
     $dicCommands['bounce_command'] = function() {

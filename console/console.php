@@ -13,8 +13,9 @@ $dic = new Container();
 new Parameters($dic);
 new Services  ($dic);
 
-new \Cerad\Component\Sinc \Services($dic);
-new \Cerad\Component\Eayso\Services($dic);
+new \Cerad\Component\Sinc     \Services($dic);
+new \Cerad\Component\Eayso    \Services($dic);
+new \Cerad\Component\Sportacus\Services($dic);
 
 $app = new Application();
 

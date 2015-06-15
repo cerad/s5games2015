@@ -9,7 +9,7 @@
  */
 namespace Cerad\Component\Excel;
 
-class Generator
+class Reporter
 {
     protected function createSpreadSheet()
     {

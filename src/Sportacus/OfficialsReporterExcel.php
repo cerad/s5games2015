@@ -1,8 +1,7 @@
 <?php
-namespace Cerad\S5Games;
+namespace Cerad\Component\Sportacus;
 
-use Cerad\Component\Excel\Generator as Reporter;
-/// Cerad\Bundle\PersonBundle\DataTransformer\PhoneTransformer;
+use Cerad\Component\Excel\Reporter;
 
 class OfficialsReporterExcel extends Reporter
 {
