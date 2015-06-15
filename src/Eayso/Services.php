@@ -11,13 +11,13 @@ class Services
   public function __construct(Dic $dic)
   {
     $dic['cerad_eayso_db_conn'] = function(Dic $dic) {
-      return DbConnFactory::create($dic['eayso_db_url']);
+      return DbConnFactory::create($dic['cerad_eayso_db_url']);
     };
     $dic['cerad_eayso_cert_type_repository'] = function() {
       return new CertTypeRepository();
     };
     $dic['cerad_eayso_cert_repository'] = function(Dic $dic) {
-      return new CertRepository($dic['eayso_db_conn']);
+      return new CertRepository($dic['cerad_eayso_db_conn']);
     };
     $dic['cerad_eayso_sync_certs'] = function(Dic $dic) {
       return new SyncCerts(

@@ -18,7 +18,7 @@ class Services
       return new Dic();
     };
     $dic['api_games_loader'] = function(Dic $dic) {
-      return new ApiGamesLoader($dic['eayso_cert_repository']);
+      return new ApiGamesLoader($dic['cerad_eayso_cert_repository']);
     };
     
     $dic['tran_sinc_spor_games_command'] = function() {
@@ -30,7 +30,9 @@ class Services
     //$dic['officials_report_command'] = function(Dic $dic) {
     //  return new OfficialsReportCommand($dic['officials_reporter_excel']);
     //};
-    $dic['bounce_command'] = function() {
+    $dicCommands = $dic['dic_commands'];
+    
+    $dicCommands['bounce_command'] = function() {
       return new BounceCommand();
     };
   }
