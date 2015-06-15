@@ -66,6 +66,23 @@ class OfficialsReporterExcel extends Reporter
     $this->writeHeaders($ws,1,$headers,$this->colWidths);
     $row = 2;
         
+    usort($games,function($game1,$game2) {
+      $cmp = strcmp($game1['date'],$game2['date']);
+      if ($cmp) return $cmp;
+      
+      $div1 = $this->getDivisionName($game1);
+      $div2 = $this->getDivisionName($game2);
+      $cmp = strcmp($div1,$div2);
+      if ($cmp) return $cmp;
+      
+      $cmp = strcmp($game1['fieldName'],$game2['fieldName']);
+      if ($cmp) return $cmp;
+      
+      $cmp = strcmp($game1['time'],$game2['time']);
+      if ($cmp) return $cmp;
+      
+      return 0;
+    });
     foreach($games as $game)
     {
       $values = array();
