@@ -10,24 +10,28 @@ class Services
 {
   public function __construct(Dic $dic)
   {
-    $dic['eayso_db_conn'] = function(Dic $dic) {
+    $dic['cerad_eayso_db_conn'] = function(Dic $dic) {
       return DbConnFactory::create($dic['eayso_db_url']);
     };
-    $dic['eayso_cert_type_repository'] = function() {
+    $dic['cerad_eayso_cert_type_repository'] = function() {
       return new CertTypeRepository();
     };
-    $dic['eayso_cert_repository'] = function(Dic $dic) {
+    $dic['cerad_eayso_cert_repository'] = function(Dic $dic) {
       return new CertRepository($dic['eayso_db_conn']);
     };
-    $dic['eayso_sync_certs'] = function(Dic $dic) {
+    $dic['cerad_eayso_sync_certs'] = function(Dic $dic) {
       return new SyncCerts(
-        $dic['eayso_db_conn'],
-        $dic['eayso_cert_type_repository']
+        $dic['cerad_eayso_db_conn'],
+        $dic['cerad_eayso_cert_type_repository']
       );
     };
-    $dic['eayso_sync_certs_command'] = function() {
-      return new SyncCertsCommand();
-    };
-
+    if (isset($dic['dic_commands'])) {
+      
+      $dicCommands = $dic['dic_commands'];
+    
+      $dic['cerad_eayso_sync_certs_command'] = function() {
+        return new SyncCertsCommand();
+      };
+    }
   }
 }

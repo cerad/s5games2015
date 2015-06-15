@@ -18,6 +18,7 @@ class Services
       return new TeamsRefereesLoader();
     };
     if (isset($dic['dic_commands'])) {
+      
       $dicCommands = $dic['dic_commands'];
     
       $dicCommands['cerad_sinc_teams_referees_command'] = function() {
