@@ -5,20 +5,20 @@ use GuzzleHttp\Client as GuzzleClient;
 
 class GamesLoaderApi
 {
+  protected $apiBaseUri; // 'http://local.sportacus.zayso.org'
   protected $eaysoCertRepository;
   
-  public function __construct($eaysoCertRepository = null)
+  public function __construct($apiBaseUri, $eaysoCertRepository = null)
   {
+    $this->apiBaseUri = $apiBaseUri;
     $this->eaysoCertRepository = $eaysoCertRepository;
   }
-  public function load($pathUri = null, $baseUri = null)
+  public function load($pathUri = null)
   {
     $pathUri = $pathUri !== null ? $pathUri : '/api/projects/19/games?pin=9345&dates=20150619-20150620';
-    $baseUri = $baseUri !== null ? $baseUri : 'http://local.sportacus.zayso.org';
     
     $guzzleClient = new GuzzleClient();
-    $baseUri = 'http://local.sportacus.zayso.org';
-    $guzzleResponse = $guzzleClient->get($baseUri . $pathUri);
+    $guzzleResponse = $guzzleClient->get($this->apiBaseUri . $pathUri);
     
     $data = json_decode($guzzleResponse->getBody()->getContents(),true);
     echo sprintf("Games %s\n",count($data['games']));

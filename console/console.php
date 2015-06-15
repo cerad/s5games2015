@@ -10,6 +10,8 @@ use Symfony\Component\Console\Application;
 
 $dic = new Container();
 
+$dic['app_data_dir'] = __DIR__ . '/data';
+
 new Parameters($dic);
 new Services  ($dic);
 
@@ -24,8 +26,6 @@ $dicCommands = $dic['dic_commands'];
 foreach($dicCommands->keys() as $serviceId) {
   $app->add($dicCommands[$serviceId]);
 }
-$app->dic = $dic;
-$app->dataDir = __DIR__ . '/data';
 
 $app->run();
 

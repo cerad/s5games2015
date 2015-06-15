@@ -1,10 +1,7 @@
 <?php
-
 namespace Cerad\Component\Sinc;
 
 use Pimple\Container as Dic;
-
-//  Cerad\Component\Dbal\ConnectionFactory as DbConn;
 
 class Services
 {
@@ -16,6 +13,9 @@ class Services
   {
     $dic['cerad_sinc_teams_referees_loader'] = function() {
       return new TeamsRefereesLoader();
+    };
+    $dic['cerad_sinc_games_loader_excel'] = function() {
+      return new GamesLoaderExcel();
     };
     if (isset($dic['dic_commands'])) {
       

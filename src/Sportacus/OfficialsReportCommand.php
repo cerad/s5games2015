@@ -12,10 +12,13 @@ use Symfony\Component\Yaml\Yaml;
 class OfficialsReportCommand extends Command
 {
   protected $dic;
-  public function __construct($dic)
+  protected $dataDir;
+  
+  public function __construct($dataDir, $dic)
   {
     parent::__construct();
     $this->dic = $dic;
+    $this->dataDir = $dataDir;
   }
   protected function configure()
   {
@@ -25,7 +28,7 @@ class OfficialsReportCommand extends Command
   }
   protected function execute(InputInterface $input, OutputInterface $output)
   { 
-    $dataDir = $this->getApplication()->dataDir;
+    $dataDir = $this->dataDir;
     
     $loader   = $this->dic['cerad_sportacus_games_loader_api'];
     $apiGames = $loader->load();

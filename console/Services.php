@@ -17,17 +17,14 @@ class Services
     $dic['dic_commands'] = function() {
       return new Dic();
     };
-    $dic['api_games_loader'] = function(Dic $dic) {
-      return new ApiGamesLoader($dic['cerad_eayso_cert_repository']);
-    };
     
     $dic['tran_sinc_spor_games_command'] = function() {
       return new TranSincSporGamesCommand();
     };
     $dicCommands = $dic['dic_commands'];
     
-    $dicCommands['bounce_command'] = function() {
-      return new BounceCommand();
+    $dicCommands['bounce_command'] = function() use ($dic) {
+      return new BounceCommand($dic['app_data_dir'],$dic);
     };
   }
 }
