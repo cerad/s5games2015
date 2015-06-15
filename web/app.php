@@ -4,6 +4,7 @@ namespace Cerad\App\S5Games;
 date_default_timezone_set('America/Chicago');
 
 require '../vendor/autoload.php';
+require '../config/Parameters.php';
 
 use Zend\Diactoros\Response      as Response;
 use Zend\Diactoros\ServerRequest as Request;
