@@ -21,7 +21,6 @@ class GamesLoaderApi
     $guzzleResponse = $guzzleClient->get($this->apiBaseUri . $pathUri);
     
     $data = json_decode($guzzleResponse->getBody()->getContents(),true);
-    echo sprintf("Games %s\n",count($data['games']));
       
     $divs     = $data['divs']; // TODO: Process from team name?
     $games    = $data['games'];
@@ -32,7 +31,7 @@ class GamesLoaderApi
     $projects = $data['projects'];
     
     $gamesx = [];
-    foreach($games as $game) {//print_r($game); die();
+    foreach($games as $game) {
       $gamex = [];
       foreach(['id','num','date','time','length','lengthSlot','status'] as $key) {
         $gamex[$key] = $game[$key];
@@ -51,18 +50,15 @@ class GamesLoaderApi
         if (isset($team['divId'])) {
           $teamx['divName'] = $divs[$team['divId'   ]]['name'];
         }
-        else { // print_r($team); die();
+        else {
           $teamx['divName'] = $gamex['divName'];
           $teamx['divName'] = 'XXX';
-          // print_r($game); die(); 
         }
         $teamx['regionName'] = $regions[$team['regionId']]['name'];
         
         $teamx['score'] = $game[$role . 'TeamScore'];
         
         $gamex['teams'][$role] = $teamx;
-        
-        //print_r($teamx); die();
       }
       $gamex['officials'] = [];
       for($slot = 1; $slot < 6; $slot++)
