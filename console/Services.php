@@ -14,6 +14,9 @@ class Services
   }
   public function register(Dic $dic)
   {
+    $dic['dic_commands'] = function() {
+      return new Dic();
+    };
     $dic['api_games_loader'] = function(Dic $dic) {
       return new ApiGamesLoader($dic['eayso_cert_repository']);
     };
@@ -24,9 +27,9 @@ class Services
     $dic['officials_reporter_excel'] = function(Dic $dic) {
       return new OfficialsReporterExcel();
     };
-    $dic['officials_report_command'] = function(Dic $dic) {
-      return new OfficialsReportCommand($dic['officials_reporter_excel']);
-    };
+    //$dic['officials_report_command'] = function(Dic $dic) {
+    //  return new OfficialsReportCommand($dic['officials_reporter_excel']);
+    //};
     $dic['bounce_command'] = function() {
       return new BounceCommand();
     };

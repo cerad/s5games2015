@@ -13,14 +13,16 @@ $dic = new Container();
 new Parameters($dic);
 new Services  ($dic);
 
+new \Cerad\Component\Sinc \Services($dic);
 new \Cerad\Component\Eayso\Services($dic);
 
 $app = new Application();
 
-$app->add($dic['tran_sinc_spor_games_command']);
-$app->add($dic['bounce_command']);
-$app->add($dic['eayso_sync_certs_command']);
+$dicCommands = $dic['dic_commands'];
 
+foreach($dicCommands->keys() as $serviceId) {
+  $app->add($dicCommands[$serviceId]);
+}
 $app->dic = $dic;
 $app->dataDir = __DIR__ . '/data';
 
