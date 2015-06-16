@@ -7,11 +7,11 @@ date_default_timezone_set('America/Chicago');
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Pimple\Container;
+use Cerad\Component\Dic\Dic as Dic;
 
 use Symfony\Component\Console\Application;
 
-$dic = new Container();
+$dic = new Dic();
 
 $dic['app_data_dir'] = __DIR__ . '/data';
 
@@ -27,7 +27,7 @@ $app = new Application();
 $dicCommands = $dic['dic_commands'];
 
 foreach($dicCommands->keys() as $serviceId) {
-  $app->add($dicCommands[$serviceId]);
+  $app->add($dicCommands->get($serviceId));
 }
 
 $app->run();

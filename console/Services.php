@@ -1,10 +1,7 @@
 <?php
-
 namespace Cerad\App\S5Games;
 
-use Pimple\Container as Dic;
-
-//  Cerad\Component\Dbal\ConnectionFactory as DbConn;
+use Cerad\Component\Dic\Dic as Dic;
 
 class Services
 {
@@ -17,10 +14,10 @@ class Services
     $dic['dic_commands'] = function() {
       return new Dic();
     };
-    $dicCommands = $dic['dic_commands'];
+    $dicCommands = $dic->get('dic_commands');
     
     $dicCommands['bounce_command'] = function() use ($dic) {
-      return new BounceCommand($dic['app_data_dir'],$dic);
+      return new BounceCommand($dic->get('app_data_dir'),$dic);
     };
   }
 }

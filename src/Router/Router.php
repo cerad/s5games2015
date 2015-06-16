@@ -1,5 +1,5 @@
 <?php
-namespace Cerad\Component\Framework;
+namespace Cerad\Component\Router;
 
 use FastRoute\RouteCollector                as RouteCollector;
 use FastRoute\RouteParser\Std               as RouteParser;
@@ -36,6 +36,7 @@ class Router
       'methods'  => $methods,
       'pattern'  => $pattern,
       'mws'      => $mws,
+      'vars'     => null,
     ];
     $this->routeCollector->addRoute($methods,$pattern,$name);
     return $route;

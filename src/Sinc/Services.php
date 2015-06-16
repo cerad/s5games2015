@@ -1,7 +1,7 @@
 <?php
 namespace Cerad\Component\Sinc;
 
-use Pimple\Container as Dic;
+use Cerad\Component\Dic\Dic as Dic;
 
 class Services
 {
@@ -17,9 +17,9 @@ class Services
     $dic['cerad_sinc_games_loader_excel'] = function() {
       return new GamesLoaderExcel();
     };
-    if (isset($dic['dic_commands'])) {
+    if ($dic->has('dic_commands')) {
       
-      $dicCommands = $dic['dic_commands'];
+      $dicCommands = $dic->get('dic_commands');
     
       $dicCommands['cerad_sinc_teams_referees_command'] = function() {
         return new TeamsRefereesCommand();
