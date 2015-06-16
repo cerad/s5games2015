@@ -7,10 +7,8 @@
   "license": "MIT",
   "autoload": { "psr-4":
   { 
-    "Cerad\\App\\S5Games\\": "web",
-    "Cerad\\Component\\": "src",
-    "Cerad\\S5Games\\"  : "src",
-    "Cerad\\S5Games\\"  : "console"
+    "Cerad\\Component\\"     : "src",
+    "Cerad\\App\\S5Games\\"  : [ "config", "web", "console"]
   }},
   "prefer-stable":      true,
   "minimum-stability": "dev",

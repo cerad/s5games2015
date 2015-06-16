@@ -1,5 +1,5 @@
 <?php
-namespace Cerad\S5Games;
+namespace Cerad\App\S5Games;
 
 use Symfony\Component\Console\Command\Command;
 //  Symfony\Component\Console\Input\InputArgument;
@@ -10,7 +10,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 //  Doctrine\DBAL\Connection;
 
-use GuzzleHttp\Client as GuzzleClient;
 use Pimple\Container as Dic;
 
 class BounceCommand extends Command

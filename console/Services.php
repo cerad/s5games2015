@@ -1,6 +1,6 @@
 <?php
 
-namespace Cerad\S5Games;
+namespace Cerad\App\S5Games;
 
 use Pimple\Container as Dic;
 
@@ -16,10 +16,6 @@ class Services
   {
     $dic['dic_commands'] = function() {
       return new Dic();
-    };
-    
-    $dic['tran_sinc_spor_games_command'] = function() {
-      return new TranSincSporGamesCommand();
     };
     $dicCommands = $dic['dic_commands'];
     

@@ -1,9 +1,10 @@
 <?php
+namespace Cerad\App\S5Games;
+
 error_reporting(E_ALL);
 date_default_timezone_set('America/Chicago');
 
 require '../vendor/autoload.php';
-require '../config/Parameters.php';
 
 use Zend\Diactoros\Response      as Response;
 use Zend\Diactoros\ServerRequest as Request;
@@ -13,7 +14,7 @@ use Cerad\Component\Framework\Router;
 use Cerad\Component\Framework\Container as Dic;
 
 $dic = new Dic();
-new \Parameters($dic);
+new  Parameters($dic);
 new \Cerad\Component\Eayso    \Services($dic);
 new \Cerad\Component\Sportacus\Services($dic);
 
