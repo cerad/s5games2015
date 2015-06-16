@@ -81,7 +81,7 @@ class GamesLoaderApi
         }
         $gamex['officials'][$slot] = $officialx;
       }
-      $gamesx[$gamex['num']] = $gamex;
+      $gamesx[(integer)$gamex['num']] = $gamex;
     //print_r($gamex); die();
     }
     return $gamesx;

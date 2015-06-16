@@ -42,7 +42,7 @@ class GamesLoaderExcel extends Loader
     unset($item['awayTeamName']);
     unset($item['awayTeamClub']);
     
-    $this->items[] = $item;
+    $this->items[(integer)$item['num']] = $item;
     return;
   //print_r($item); die();
   }

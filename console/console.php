@@ -3,6 +3,7 @@
 namespace Cerad\S5Games;
 
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../config/Parameters.php';
 
 use Pimple\Container;
 
@@ -12,8 +13,8 @@ $dic = new Container();
 
 $dic['app_data_dir'] = __DIR__ . '/data';
 
-new Parameters($dic);
-new Services  ($dic);
+new \Parameters($dic);
+new  Services  ($dic);
 
 new \Cerad\Component\Sinc     \Services($dic);
 new \Cerad\Component\Eayso    \Services($dic);

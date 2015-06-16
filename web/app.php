@@ -1,6 +1,5 @@
 <?php
-namespace Cerad\App\S5Games;
-
+error_reporting(E_ALL);
 date_default_timezone_set('America/Chicago');
 
 require '../vendor/autoload.php';
@@ -14,7 +13,7 @@ use Cerad\Component\Framework\Router;
 use Cerad\Component\Framework\Container as Dic;
 
 $dic = new Dic();
-new Parameters($dic);
+new \Parameters($dic);
 new \Cerad\Component\Eayso    \Services($dic);
 new \Cerad\Component\Sportacus\Services($dic);
 
@@ -44,7 +43,7 @@ $dic['officials_report_route'] = $dic->protect(function(Request $request, Respon
 });
 
 $router = new Router();
-$router->addRoute('index_route','GET','/');
+$router->addRoute('index_route',           'GET','/');
 $router->addRoute('officials_report_route','GET','/officials/report');
 
 $request = ServerRequestFactory::fromGlobals();
