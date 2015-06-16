@@ -1,4 +1,5 @@
 <?php
+namespace Cerad\App\S5Games;
 
 use Pimple\Container;
 
