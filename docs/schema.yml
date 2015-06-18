@@ -1,0 +1,197 @@
+# types
+#   seq  - sequence number fo local storage, often autoincrementing
+#   key  - globally unique yet readable identifier
+#   guid - globally unique, non readable identifier
+# props
+#   required - boolean with a default value of false
+#   rel 
+#       item - N to 1 relation
+#       map  - 1 to N with keys    ( hash)
+#       list - 1 to N with no keys (array)
+Entities:
+  Project:
+    Meta: 
+      domain: Project
+      description: Your basic season or tournament
+    id:   { type: seq  }
+    key:  { type: key, link: project_key }
+    role: 
+      type: enum
+      values: [Season, Tournament]
+      required: true
+    physical_federation_key:
+      type: PhysicalFederation
+      rel:  item
+      values: [USSF, AYSO, NFHS, NISOA]
+      required: true, 
+    
+    physical_federation_requirements_key:
+      type: enum
+      values: [ MY2014, CY2015, etc ]
+      description: "Indicates what re-occuring requirements (Typically yearly) must be met"
+      required: false
+      
+    project_parent_id: 
+      type: Project
+      rel:  item, 
+      req:  false
+      description: "To allow a project heirarchy"
+      
+  name: {}
+  description: {}
+  dates: {}
+  status: 
+    type: enum
+    values: [Active, Completed, Future, Canceled, Requested, Suspended]
+    required: true
+  
+  # ======================================================
+  ProjectGame:
+    Meta: 
+      domain: Project
+    id: { type: seq  }
+    num: 
+      type: integer
+      project_unique: true, 
+      required: true
+      
+    role:
+      type: enum
+      values: [ Game, Practice, Scrimmage, Frieldly ]
+      required: true
+      
+    project_id:             { type: Project,           rel: item, required: true }
+    project_venue_field_id: { type: ProjectVenueField, rel: item, required: true }
+    project_division_id:    { type: ProjectDivision,   rel: item, required: true }
+    
+    date: { type: date, required: false }
+    time: { type: time, required: false }
+    time_zone: { type: enum, values: [CST,EST,MST,PST], required:  false }
+    
+    state:
+      type: enum
+      values: [Scheduled, Played, Canceled, Forfeit]
+      required: true
+      
+    pool_play_info: {} # TODO
+    teams:     { type: ProjectGameTeam,     rel: map, keys: [home, away], required: true }
+    officials: { type: ProjectGameOfficial, rel: map, keys: [Referee, AR1, AR2 ] }
+    
+  # ========================================
+  ProjectGameTeam:
+    id:
+    project_game_id: { type: ProjectGame,  rel: item, required: true  }
+    project_team_id: { type: ProjectTeam,  rel: item, required: false }
+      
+    role: # home, away
+    team_name:
+    game_slot: '1st Pool A' # Better name
+        
+    ProjectGameTeamStaff:  # Coach/Manager/Trainer Bench people
+    ProjectGameTeamPlayer: # Players for the actual game
+  
+  # =========================================
+  ProjectGameOfficial: # Copied or linked from ProjectPerson
+    id:
+    role:    # Referee, AR1, AR2, Assessor, Mentor, 4th
+    project_game_id:
+    project_person_id:
+    assign_state: # Assigned, accepted etc
+    slot_state:   # Allow signups etc
+  
+  # ===========================================
+  ProjectGameStaff: # Field monitors etc
+      
+  ProjectVenue:
+    id:
+    name:
+    location:
+      
+  ProjectVenueField: # Need ProjectGameField? probably not, MM #9 U10, MM #9 U12
+    id:
+    project_venue_id:
+    name:     # Unique within project for schedules
+    location:
+    tbd: { type: boolean }
+      
+  ProjectPerson:
+    id:
+    project_id:
+      
+    physical_person_guid: # TODO: Combine
+    fed_person_key: # aysoid, ussfid etc
+    
+    name: # Unique withing project for schedules
+    dob:
+    gender:
+    email:
+    phone:
+      
+  ProjectPersonRole:
+    id:
+    project_person_id:
+    role: # referee, coach, player, volunteer staff etc
+    badge:
+    verified: # Do referees have all the applicable training
+      
+  ProjectTeam:
+    
+  ProjectDivision:
+    id:
+    project_id:
+    program: # Core, Extra, Select
+    age:
+    gender:  # Male, Female, Boy/Girl/Coed
+    bracket: # Gold, Silver, Bronze
+     
+  PhysicalPerson:
+    Domain: Person
+    id:
+    guid:
+    name:
+    dob:
+    gender:
+    email:
+    phone:
+    PhysicalPersonFederationOrganization: # Referees in USSF can register in multiple states
+      id:
+      role:    # Player, Volunteer, Contractor
+      fed_id:  # aysoid, ussfid
+      fed_key: # USSF etc
+      person_fed_guid: # Allows linking directly to this record
+      fed_reg_year_key:
+      status:
+      PhysicalPersonFederationCert:
+        role: Referee
+        badge:
+        cert_date:
+        fed_reg_year_key:  # Could be different 
+        verified:
+
+
+  PhysicalFederation:
+    Domain: Federation
+    Meta:
+      description: Large Organizations
+    id:
+    key: 
+      link: physical_federation_key
+      abbr: fed_key
+      type: enum, 
+      values: [AYSO USSF NFHS]
+    name:
+    PhysicalFederationOrganization: # Region, club etc
+      id:
+      physical_federation_id:
+      key: AYSO_R0894 # Globally unique
+      name:
+      desc:
+    
+  # Own Domain
+  PhysicalTeam:
+    id:
+    name:
+    physical_federation_organization_key: # Or maybe allow team to be in multiple feds?
+    
+    
+      
