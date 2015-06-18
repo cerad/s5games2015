@@ -37,9 +37,9 @@ Entities:
       req:  false
       description: "To allow a project heirarchy"
       
-  name: {}
-  description: {}
-  dates: {}
+  name: { type: string, required: true}
+  description: { type: string, required: false}
+  dates: {} # ndividual dates or date range, some tournaments split across two weekends
   status: 
     type: enum
     values: [Active, Completed, Future, Canceled, Requested, Suspended]
@@ -49,10 +49,10 @@ Entities:
   ProjectGame:
     Meta: 
       domain: Project
+      unique: [project_id,num]
     id: { type: seq  }
     num: 
       type: integer
-      project_unique: true, 
       required: true
       
     role:
@@ -60,7 +60,8 @@ Entities:
       values: [ Game, Practice, Scrimmage, Frieldly ]
       required: true
       
-    project_id:             { type: Project,           rel: item, required: true }
+    project_id:             { type: Project, rel: item, required: true }
+    project_key:            { type: Project, rel: item, psuedo:   true }
     project_venue_field_id: { type: ProjectVenueField, rel: item, required: true }
     project_division_id:    { type: ProjectDivision,   rel: item, required: true }
     
