@@ -1,7 +1,6 @@
 /nbproject/
 /.idea/
 /vendor/
-/.idea/
 /composer.lock
 /app/AppParameters.php
 /app/data/
