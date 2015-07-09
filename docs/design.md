@@ -21,6 +21,8 @@ ProjectSite
 ProjectSitePitch
 ProjectSitePitchSlot - Parent/Child
 
+Station and Pitch are quite similar. Maybe ProjectSiteLocation.
+
 Project
 ProjectGame => ProjectSitePitchSlot
 ProjectGameTeam
